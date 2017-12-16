@@ -8,7 +8,11 @@ clientSocket = socket()
 
 def client(host, port, sock):
 
-    sock.connect((host, port))
+    try:
+        sock.connect((host, port))
+    except:
+        print 'The server is down right now, try to connect later'
+        return
     print 'Socket connected to ' + host
 
     menu = sock.recv(4096)
