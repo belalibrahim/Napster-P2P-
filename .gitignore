@@ -1,4 +1,5 @@
 .idea/
 users
 *.pyc
+DOWNLOADED*
 __pycache__
