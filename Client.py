@@ -116,13 +116,24 @@ def client(host, port, sock):
                 elif reply.split('\n')[0] == 'OPENED':
                     fw = open("DOWNLOADED_" + fileName, 'wb+')
                     chunk = s1.recv(1024)
-                    size = len(chunk) - 5
+                    size = len(chunk) - 4
                     while not chunk.endswith('\nEOF'):
                         fw.write(chunk)
                         chunk = s1.recv(1024)
                         size += len(chunk)
                     fw.close()
                     print "\nThe file has been downloaded"
+                    print "\nDo yo want to display file '" + fileName + "' (y/n)"
+                    choice = raw_input()
+                    if choice == 'y':
+                        # if size less than 1MB then print
+                        if size < 1048576:
+                            print 'Opening the file...\n'
+                            fr = open("DOWNLOADED_" + fileName, 'rb')
+                            print fr.read()
+                            fr.close()
+                        else:
+                            print 'Cannot print, the file is large.\n'
 
                 s1.close()
 
