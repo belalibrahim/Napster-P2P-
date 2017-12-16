@@ -116,9 +116,11 @@ def client(host, port, sock):
                 elif reply.split('\n')[0] == 'OPENED':
                     fw = open("DOWNLOADED_" + fileName, 'wb+')
                     chunk = s1.recv(1024)
+                    size = len(chunk) - 5
                     while not chunk.endswith('\nEOF'):
                         fw.write(chunk)
                         chunk = s1.recv(1024)
+                        size += len(chunk)
                     fw.close()
                     print "\nThe file has been downloaded"
 
