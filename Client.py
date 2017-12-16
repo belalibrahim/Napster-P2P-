@@ -116,8 +116,7 @@ def client(host, port, sock):
                 elif reply.split('\n')[0] == 'OPENED':
                     fw = open("DOWNLOADED_" + fileName, 'wb+')
                     chunk = s1.recv(1024)
-                    while chunk != 'EOF':
-
+                    while not chunk.endswith('\nEOF'):
                         fw.write(chunk)
                         chunk = s1.recv(1024)
                     fw.close()
@@ -163,7 +162,7 @@ def client_server(cssocket):
                     chunk = fr.read(1024)
 
                 fr.close()
-                conn.send('EOF')
+                conn.send('\nEOF')
             except:
                 conn.send('ERROR\nNo such file available')
                 continue
